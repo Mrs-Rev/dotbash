@@ -1,0 +1,48 @@
+# Handy change permissions
+echo 'repairPermissions           ...Command to change owner to keystone, change group to keystone, and repair permissions for all files and directories in the current directory.'
+alias repairPermissions="sudo chown -R keystone:keystone * ; sudo find . -type d -print0 | xargs -0 sudo chmod 775; sudo find . -type f -print0 | xargs -0 sudo chmod 664; sudo find . -type f -name '*.*sh' -print0 | xargs -0 sudo chmod 775; #"
+echo 'repairPermissionsDokuwiki   ...Command to change owner to keystone, change group to keystone, and repair permissions for all files and directories in the current Dokuwiki directory.'
+alias repairPermissionsDokuwiki="sudo chown -R keystone:keystone * ; sudo chmod -R 664 * ; sudo find . -type d -print0 | xargs -0 sudo chmod 775 ; sudo find . -name conf -print0 | xargs -0 sudo chmod -R o+w ; sudo find . -name plugins -print0 | xargs -0 sudo chmod -R o+w ; #"
+alias repairPermissionsDokuwikiData="sudo -s -H; cd /data/keystone/dokuwiki/data_keystone/; chown -R nobody:keystone *; chown nobody:keystone .htaccess; find . -type d | xargs chmod 770 ; find . type f | xargs chmod 660 "
+echo 'chmodFiles                  ...Find all the FILES in the current directory and chmod to 664.'
+alias chmodFiles="find . -type f -print0 | xargs -0 sudo chmod 664"
+echo 'chmodDirectories            ...Find all the DIRECTORIES in the current directory and chmod to 775.'
+alias chmodDirectories="find . -type d -print0 | xargs -0 sudo chmod 775"
+
+# ldap lookup of role&org
+echo 'ldap_role uid=helpdesk      ...Lookup a role and org LDAP entry'
+alias ldap_role='ldapsearch -x -h operator.tamu.edu -b "ou=roles, dc=tamu, dc=edu" '
+# ldap lookup of whitepages
+echo 'ldap_people smb=reverman    ...Lookup a person LDAP entry'
+alias ldap_people='ldapsearch -x -h operator.tamu.edu -b "ou=people,dc=tamu,dc=edu" '
+echo 'ldap_qatar (sn=sansom*)'
+alias ldap_qatar='ldapsearch -x -H ldaps://ldap.qatar.tamu.edu -b "OU=All Users,dc=qatar,dc=tamu,dc=edu" -D "QATAR\kim.reverman" -W'
+# sample dump binlog
+echo 'dump_binlog                 ...Just a sample of mysqlbinlog'
+alias dump_binlog='sudo /data/mysql/bin/mysqlbinlog -o 185000 /data/mysql/var/watson-bin.014 | less'
+
+# base64
+echo 'base64 cool tip	...     echo "paste_base64_text'
+echo '				> " | openssl base64 -d'
+
+# fix php short tags (1)
+# 	this version did fix <?function()?>
+#alias fixPhpShortTags="sed -e 's/<?\([ \t\r]\)/<?php\1/g' \
+#	-e 's/<?$/<?php/g' \
+#	-e 's/<?=\([ \t\r]*[^?]\)/<?php echo \1/g' \
+#	-e 's/\([^; ]\)?>/\1; ?>/g'"
+
+# fix php short tags (2)
+echo 'fixPhpShortTags *.php       ...Fix the php short tags, even if some of the scripts are already converted.'
+alias fixPhpShortTags="sed -ibak -e 's/<?/<?php/g' \
+	-e 's/<?phpphp/<?php/g' \
+	-e 's/<?php\([a-z]\)/<?php \1/g' \
+	-e 's/<?php=/<?php echo /g' \
+	-e 's/<?php\([{}]\)/<?php \1/g' \
+	-e 's/ ?>/?>/g' \
+	-e 's/\([^;{}]\)?>/\1;?>/g' \
+	-e 's/?>/ ?>/g' \
+	-e 's/^ ?>/?>/g' \
+	-e 's/<?php;/<?php/g' \
+	"
+echo "grep '[<?][?>]'             ...Nice way to search for php tags."
