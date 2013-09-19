@@ -26,3 +26,6 @@ And, the font weight is adjusted in the .dir_colors
 
 	ln -s .bash/.dir_colors_NO_BOLD .dir_colors
 
+Reminders:
+
+	vim .forward
