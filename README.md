@@ -26,6 +26,7 @@ And, the font weight is adjusted in the .dir_colors
 
 	ln -s .bash/.dir_colors_NO_BOLD .dir_colors
 
-Reminders:
+Mail forwarding (pick one):
 
-	vim .forward
+	ln -s .bash/.forward_production .forward
+	ln -s .bash/.forward_test .forward
