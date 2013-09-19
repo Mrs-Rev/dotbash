@@ -1,7 +1,9 @@
-About:
-	My .bash git repository.
+dotbash
+=======
+My .bash git repository.
 
 Installation:
+-------------
 	git clone git://github.com/Mrs-Rev/dotbash.git ~/.bash
 
 Remove these files:
