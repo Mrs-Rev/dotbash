@@ -23,6 +23,7 @@ Create symlinks:
 If you are not fond of the font and colors used by bash ...
 Colors can be adjusted by the terminal application preferences.
 And, the font weight is adjusted in the .dir_colors
+The original color file is /etc/DIR_COLORS
 
 	ln -s .bash/.dir_colors_NO_BOLD .dir_colors
 
